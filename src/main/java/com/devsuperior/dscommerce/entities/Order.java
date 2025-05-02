@@ -3,6 +3,8 @@ package com.devsuperior.dscommerce.entities;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_order")
@@ -23,8 +25,10 @@ public class Order {
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private Payment payment;
 
-    public Order() {
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
 
+    public Order() {
     }
 
     public Order(Long id, Instant moment, User client, OrderStatus status, Payment payment) {
